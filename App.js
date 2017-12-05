@@ -3,13 +3,11 @@ import { StyleSheet, Text, View, FlatList, TouchableHighlight ,TextInput,Image} 
 import styles from './src/front-end/style';
 import {FontAwesome} from '@expo/vector-icons';
 
-
-// this.setState(prevState=>({pressStatus: !prevState.pressStatus}));
 class Square extends Component{
   constructor(props){
     super(props);
     this.state={
-      pressStatus: false,
+      pressStatus: this.props.pressStatus,
     };
   }
   render(){
@@ -19,7 +17,7 @@ class Square extends Component{
           this.props.onClick();
           this.setState(prevState=>({pressStatus: !prevState.pressStatus}));
         }}
-        style={this.state.pressStatus? styles.buttonStyleY :styles.buttonStyleX}>
+        style={this.state.pressStatus? styles.buttonStyleY : styles.buttonStyleX}>
           <Text style={{fontSize:20,fontWeight:"bold"}}>
             {this.props.value}
           </Text>
@@ -34,6 +32,7 @@ class Board extends Component{
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true,
+      pressStatus: false,
     };
     this.renderItem = this.renderItem.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
@@ -45,6 +44,7 @@ class Board extends Component{
     this.setState({
       squares: squares,
       xIsNext: !this.state.xIsNext,
+      pressStatus: !this.state.pressStatus,
     });
   }
 
@@ -54,6 +54,7 @@ class Board extends Component{
         <Square
         value={this.state.squares[i]}
         onClick={()=>this.handleTouch(i)}
+        pressStatus={this.state.pressStatus}
       />
     );
   }
@@ -108,7 +109,7 @@ class Board extends Component{
 
         <View style={{justifyContent:"center",alignItems:"center"}}>
           <TouchableHighlight
-            onPress={()=>this.setState({squares: this.state.squares.fill(null)})}
+            onPress={()=>this.setState({squares: this.state.squares.fill(null),pressStatus: false})}
             style={{width:200,height:50,justifyContent:"center",alignItems:"center",marginTop:40,backgroundColor:"white"}}>
             <Text>Play again</Text>
           </TouchableHighlight>
