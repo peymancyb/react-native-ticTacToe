@@ -125,7 +125,7 @@ export default class App extends Component{
     return(
       <View style={styles.container}>
         <Image
-          source={require("./src/front-end/octapus.jpg")}
+          source={require("./src/front-end/batox.jpg")}
           style={styles.backgroundImage}
         />
         <Board />
